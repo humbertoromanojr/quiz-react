@@ -1,4 +1,5 @@
-QUIZ DEMO
+<h1 align="center">QUIZ DEMO</h1>
+
 
 # Sources
 - https://www.youtube.com/watch?v=ETNv7en7DBU
