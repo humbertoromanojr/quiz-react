@@ -47,7 +47,38 @@ nextQuestionHander = () => {
     })
 }
 
+//Load the quiz once the component mounts
+componentDidMount(){
+    this.loadQuiz();
+}
+
+//Check the answer
+checkAnswer = answer => {
+    this.setState({
+        userAnswer: answer,
+        disabled:false
+    })
+}
+
+//Update the component
+componentDidUpdate(prevProps, prevState){
+    const{currentIndex} = this.state;
+    if(this.state.currentIndex !== prevState.currentIndex){
+        this.setState(() => {
+            return {
+                disabled: true,
+                question: QuizData[currentIndex].question,
+                options : QuizData[currentIndex].options,
+                answer: QuizData[currentIndex].answer          
+            }
+        });
+
+    }
+}
+
 render() {
+    const {question, options, answer, currentIndex, quizEnd} = this.state;
+
     return (
       <>
         
