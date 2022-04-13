@@ -29,7 +29,23 @@ loadQuiz = () => {
     }
     )
 }
+
+//Handles Click event for the next button
+nextQuestionHander = () => {
+    const {userAnswer, answer, score} = this.state
     
+    //Check for correct answer and increment score
+    if(userAnswer === answer){
+        this.setState({
+            score: score + 1
+        })
+    }
+
+    this.setState({
+        currentIndex: this.state.currentIndex + 1,
+        userAnswer: null
+    })
+}
 
 render() {
     return (
