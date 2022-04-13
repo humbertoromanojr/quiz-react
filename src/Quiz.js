@@ -47,6 +47,24 @@ nextQuestionHander = () => {
     })
 }
 
+//Responds to the click of the finish button
+finishHandler =() => {
+    const {userAnswer, answer, score} = this.state
+
+    if(userAnswer === answer) {
+        this.setState({
+            score: score + 1
+        })
+    }
+
+    if(this.state.currentIndex === QuizData.length -1){
+        this.setState({
+            quizEnd:true
+        })
+    }
+
+}
+
 //Load the quiz once the component mounts
 componentDidMount(){
     this.loadQuiz();
@@ -77,11 +95,26 @@ componentDidUpdate(prevProps, prevState){
 }
 
 render() {
-    const {question, options, answer, currentIndex, quizEnd} = this.state;
+    const {question, options, userAnswer, currentIndex, quizEnd} = this.state;
 
     return (
       <div>
         <h2>{question}</h2>
+        <span>{`Question ${currentIndex + 1} of ${QuizData.length} - Score: ${this.state.score}`}</span>
+        {
+            options.map(option => 
+                <p key={option.id} className={`options ${userAnswer === option ? "selected" : null}`} 
+                onClick = {() => this.checkAnswer(option)}>
+                    {option}
+                </p>
+            )
+        }
+
+        {currentIndex < QuizData.length - 1 && 
+            <button disabled={this.state.disabled} onClick={this.nextQuestionHander}>Next question</button>}
+
+        {currentIndex === QuizData.length - 1 &&
+        <button disabled={this.state.disabled} onClick={this.finishHandler}>Finish</button>}
       </div>
     )
   }
